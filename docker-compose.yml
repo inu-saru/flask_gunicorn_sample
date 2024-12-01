@@ -1,0 +1,18 @@
+version: "3"
+services:
+  flaskapi:
+    container_name: "flask-api"
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "3060:3060"
+    volumes:
+      # バインドマウント
+      - .:/workspace
+    # サーバー(gunicorn)実行
+    command: gunicorn wsgi:flask_api --config gunicorn_config.py
+    # command: gunicorn --reload -w 1 --bind 0.0.0.0:3060 --chdir /workspace/app wsgi:flask_api
+
+    tty: true
