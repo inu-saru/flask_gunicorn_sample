@@ -9,3 +9,6 @@ COPY requirements.txt /workspace
 # 必要モジュールのインストール
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+COPY . .
+CMD ["gunicorn", "--reload", "-w", "1" ,"--bind", "0.0.0.0:3060", "--chdir", "/workspace/app", "wsgi:flask_api"]
