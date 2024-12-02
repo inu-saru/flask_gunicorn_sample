@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: flask-api
+    plan: free
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    startCommand: "gunicorn --reload -w 1 --bind 0.0.0.0:3060 --chdir /workspace/app wsgi:flask_api"
+    envVars:
+    - key: PORT
+      value: 3060
